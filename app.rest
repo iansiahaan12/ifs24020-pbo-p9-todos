@@ -1,3 +1,5 @@
+
+## Global Variables
 @BaseUrl = http://localhost:8080/api
 
 ## Todos
