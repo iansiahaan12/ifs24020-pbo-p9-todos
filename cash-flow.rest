@@ -1,0 +1,118 @@
+## Global Variables
+@BaseUrl = http://localhost:8080/api
+
+############################################
+## CASH FLOW API REQUESTS
+############################################
+
+# -----------------------------------------
+# Create Cash Flow
+# -----------------------------------------
+POST {{BaseUrl}}/cash-flows
+Content-Type: application/json
+
+{
+    "type": "Outflow",
+    "source": "Tabungan Pribadi",
+    "label": "alat-elektronik",
+    "amount": 10000,
+    "description": "Kebutuhan komputer server"
+}
+###
+# Response Example:
+# {
+#   "status": "success",
+#   "message": "Berhasil menambahkan data",
+#   "data": { "id": "xxxx" }
+# }
+###
+
+# -----------------------------------------
+# Get All Cash Flows
+# -----------------------------------------
+# @name GetAllCashFlows
+GET {{BaseUrl}}/cash-flows
+###
+
+# -----------------------------------------
+# Get All Cash Flows (With Search)
+# -----------------------------------------
+# @name GetAllCashFlowsWithSearch
+GET {{BaseUrl}}/cash-flows?search=Pribadi
+###
+
+# Response Example:
+# {
+#   "status": "success",
+#   "message": "Berhasil mengambil data",
+#   "data": { "cash_flows": [...] }
+# }
+###
+
+# -----------------------------------------
+# Save ID from First Cash Flow
+# -----------------------------------------
+@cashFlowId = {{$GetAllCashFlows.response.body.data.cash_flows[0].id}}
+
+# -----------------------------------------
+# Get Cash Flow by ID
+# -----------------------------------------
+# @name GetCashFlowById
+GET {{BaseUrl}}/cash-flows/{{cashFlowId}}
+###
+# Example Response:
+# {
+#   "status": "success",
+#   "message": "Berhasil mengambil data",
+#   "data": { "cash_flow": { ... } }
+# }
+###
+
+# -----------------------------------------
+# Get Cash Flow Labels
+# -----------------------------------------
+# @name GetCashFlowLabels
+GET {{BaseUrl}}/cash-flows/labels
+###
+# Example Response:
+# {
+#   "status": "success",
+#   "message": "Berhasil mengambil data",
+#   "data": { "labels": [...] }
+# }
+###
+
+# -----------------------------------------
+# Update Cash Flow by ID
+# -----------------------------------------
+# @name PutCashFlowById
+PUT {{BaseUrl}}/cash-flows/{{cashFlowId}}
+Content-Type: application/json
+
+{
+    "type": "Inflow",
+    "source": "Freelance Project",
+    "label": "proyek-freelance",
+    "amount": 5000000,
+    "description": "Pendapatan dari proyek freelance pengembangan web."
+}
+###
+# Response Example:
+# {
+#   "status": "success",
+#   "message": "Berhasil memperbarui data"
+# }
+###
+
+# -----------------------------------------
+# Delete Cash Flow by ID
+# -----------------------------------------
+# @name DeleteCashFlowById
+DELETE {{BaseUrl}}/cash-flows/{{cashFlowId}}
+###
+# Response Example:
+# {
+#   "status": "success",
+#   "message": "Berhasil menghapus data"
+# }
+###
